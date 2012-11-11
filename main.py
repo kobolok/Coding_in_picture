@@ -7,9 +7,6 @@ def main():
         making_bmp(bin_code, args["resultimage"])
     else:
         blocks = decoding_image(args["image"])
-        f = open("o.txt", "w")
-        for i in range(len(blocks)):
-            f.write(blocks[i] + '\n')
         archive_name = restoring_archive(blocks)
         unpacking(archive_name, args["resultpath"])
 
@@ -71,7 +68,7 @@ def making_bmp(bin_code, resultimage):
     from struct import Struct
     from sys import exit
     
-    dpi_h, dpi_v = 200, 200
+    dpi_h, dpi_v = 150, 150
     side = ceil(sqrt(len(bin_code) / 10))
     pixels = (side + 2) ** 2 * 70
     maximum = dpi_h * dpi_v * 8 * 11
