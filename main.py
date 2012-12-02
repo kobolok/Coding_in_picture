@@ -72,13 +72,15 @@ def making_bmp(bin_code, resultimage):
     side = ceil(sqrt(len(bin_code) / 10))
     pixels = (side + 2) ** 2 * 70
     maximum = dpi_h * dpi_v * 8 * 11
-    open('o.txt','w').write("%d %d" % (pixels, maximum))
     if maximum < pixels:
         print("Too big file. %d pixels. Maximum %d pixels. %d dpi" % (pixels, maximum, dpi_h))
         exit()
     
     for i in range((side ** 2) - len(bin_code) % (side ** 2)):
         bin_code.append('0000000')
+    while len(bin_code) / (side ** 2) < 10:
+        for i in range(side ** 2):
+            bin_code.append('0000000')
     blocks = blocking_to_bmp(bin_code, side)
     f = open(resultimage, "wb")
     byte_0 = bytes([int('1' * 8, 2)] * 3)
